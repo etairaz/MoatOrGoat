@@ -1,73 +1,27 @@
-# React + TypeScript + Vite
+# Moat or Goat 🐐🏰
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Swipe-based VC Investment Simulator.
 
-Currently, two official plugins are available:
+> "I brought up the word 'moat' way too many times." - This Game's Origin Story
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This fun little game was created after a session with some fine people from the **PEF group**, where I may or may not have caused people to have an overdose of the "moat" concept.
 
-## React Compiler
+## The Game
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+You are a Venture Capitalist with **18 months of runway**.
+Swipe through 100+ AI/Crypto/SaaS startup pitches:
 
-## Expanding the ESLint configuration
+-   **Swipe Right (🏰 MOAT)**: Defensible business. Strong network effects. You survive.
+-   **Swipe Left (🐐 GOAT)**: Hype. Trash. Vaporware. You dodge a bullet.
+-   **Pivot**: Skip a confusing pitch (Costs **2 Months** of runway).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Goal**: Survive as long as possible and top the leaderboard.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
+-   React + Vite
+-   Tailwind CSS (Vaporwave/Retro aesthetic)
+-   Framer Motion (Swipe physics)
+-   Supabase (Leaderboard)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+*Built with love for the PEF group, by Gemini 3, with some mild instructions and supervision of the nudnik human who owns this repo*
