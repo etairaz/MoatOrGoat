@@ -120,7 +120,7 @@ export const Game: React.FC = () => {
     }
 
     return (
-        <div className="relative w-full max-w-md h-[90dvh] flex flex-col items-center">
+        <div className="relative w-full max-w-md h-full pb-12 flex flex-col items-center justify-center">
             {/* HUD */}
             <div className="w-full flex justify-between items-end mb-4 px-4 font-retro text-sm">
                 <div className="flex flex-col">
