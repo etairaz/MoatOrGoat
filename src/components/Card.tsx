@@ -33,10 +33,10 @@ export const Card: React.FC<CardProps> = ({ scenario, onSwipe }) => {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={handleDragEnd}
-            className="absolute w-full max-w-sm aspect-[3/4] bg-slate-800 rounded-xl p-6 border-4 shadow-2xl flex flex-col items-center justify-center text-center cursor-grab active:cursor-grabbing touch-none select-none"
+            className="absolute w-full max-w-sm aspect-[3/4] max-h-[60vh] bg-slate-800 rounded-xl p-6 border-4 shadow-2xl flex flex-col items-center justify-center text-center cursor-grab active:cursor-grabbing touch-none select-none"
         >
             <div className="flex-1 flex items-center justify-center">
-                <h2 className="text-xl md:text-2xl leading-relaxed text-white font-retro">
+                <h2 className="text-lg md:text-2xl leading-relaxed text-white font-retro">
                     {scenario.text}
                 </h2>
             </div>
