@@ -5,6 +5,7 @@ interface GameOverProps {
     score: number;
     onRestart: () => void;
     isWin?: boolean;
+    playerName: string;
 }
 
 const FUNNY_MESSAGES = [
@@ -18,16 +19,19 @@ const FUNNY_MESSAGES = [
     "Don't worry, failure is just 'learning' (expensive learning)."
 ];
 
-export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = false }) => {
-    const [playerName, setPlayerName] = useState('');
+export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = false, playerName }) => {
     const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-    const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [funnyMessage, setFunnyMessage] = useState('');
 
+    const submittedRef = React.useRef(false);
+
     useEffect(() => {
-        fetchLeaderboard();
+        if (submittedRef.current) return;   // Prevent multiple submissions
+        submittedRef.current = true;
+
         setFunnyMessage(FUNNY_MESSAGES[Math.floor(Math.random() * FUNNY_MESSAGES.length)]);
+        submitScore(); // Auto-submit on mount
     }, []);
 
     const fetchLeaderboard = async () => {
@@ -45,9 +49,8 @@ export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = fa
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!playerName.trim()) return;
+    const submitScore = async () => {
+        if (!playerName) return; // Should technically not happen if Name is forced at start
 
         setLoading(true);
         try {
@@ -56,11 +59,11 @@ export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = fa
                 .insert([{ player_name: playerName, score }]);
 
             if (error) throw error;
-            setSubmitted(true);
-            fetchLeaderboard(); // Refresh leaderboard
+            fetchLeaderboard(); // Fetch leaderboard after successful submission
         } catch (error) {
             console.error('Error submitting score:', error);
-            alert('Failed to submit score. Check console for details.');
+            // Even if fail, try to fetch leaderboard so user sees something
+            fetchLeaderboard();
         } finally {
             setLoading(false);
         }
@@ -79,35 +82,19 @@ export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = fa
             <div className="text-center">
                 <p className="text-slate-400 text-sm font-mono mb-2">FINAL SCORE</p>
                 <p className="text-6xl text-white font-retro">{score}</p>
+                <p className="text-moat font-retro mt-2 text-sm">{playerName}</p>
             </div>
 
-            {!submitted ? (
-                <form onSubmit={handleSubmit} className="w-full space-y-4">
-                    <input
-                        type="text"
-                        value={playerName}
-                        onChange={(e) => setPlayerName(e.target.value)}
-                        placeholder="ENTER NAME"
-                        maxLength={10}
-                        className="w-full bg-slate-800 border-2 border-slate-600 focus:border-moat rounded p-3 text-center text-white font-retro uppercase placeholder:text-slate-600 outline-none"
-                        autoFocus
-                    />
-                    <button
-                        type="submit"
-                        disabled={loading || !playerName.trim()}
-                        className="w-full bg-moat hover:bg-green-400 text-slate-900 font-retro py-3 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {loading ? 'SAVING...' : 'SAVE SCORE'}
-                    </button>
-                </form>
-            ) : (
-                <div className="w-full bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                    <h3 className="text-moat font-retro text-xs mb-4 text-center">TOP 10 VCs</h3>
+            <div className="w-full bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                <h3 className="text-moat font-retro text-xs mb-4 text-center">TOP 10 VCs</h3>
+                {loading && !leaderboard.length ? (
+                    <p className="text-slate-500 text-center text-xs animate-pulse">Loading Leaderboard...</p>
+                ) : (
                     <div className="space-y-2 max-h-60 overflow-y-auto">
                         {leaderboard.map((entry, index) => (
-                            <div key={entry.id} className="flex justify-between text-xs font-mono">
+                            <div key={entry.id} className={`flex justify-between text-xs font-mono p-1 rounded ${entry.player_name === playerName && entry.score === score ? 'bg-moat/20 border border-moat/30' : ''}`}>
                                 <span className="text-slate-400">
-                                    {index + 1}. <span className="text-white">{entry.player_name}</span>
+                                    {index + 1}. <span className={entry.player_name === playerName ? 'text-moat font-bold' : 'text-white'}>{entry.player_name}</span>
                                 </span>
                                 <span className="text-moat">{entry.score}</span>
                             </div>
@@ -116,8 +103,8 @@ export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = fa
                             <p className="text-slate-500 text-center text-xs">No scores yet. Be the first!</p>
                         )}
                     </div>
-                </div>
-            )}
+                )}
+            </div>
 
             <button
                 onClick={onRestart}

@@ -101,7 +101,12 @@ export const Game: React.FC = () => {
         setLastResult(null);
     };
 
-    const startGame = () => {
+    const [playerName, setPlayerName] = useState('');
+
+    // ... (rest of code)
+
+    const startGame = (name: string) => {
+        setPlayerName(name);
         setGameState('playing');
     };
 
@@ -111,7 +116,7 @@ export const Game: React.FC = () => {
 
     if (gameState === 'gameover') {
         const win = deckEmpty && runway > 0;
-        return <GameOver score={score} onRestart={restartGame} isWin={win} />;
+        return <GameOver score={score} onRestart={restartGame} isWin={win} playerName={playerName} />;
     }
 
     return (
