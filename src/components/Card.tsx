@@ -9,8 +9,8 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ scenario, onSwipe }) => {
     const x = useMotionValue(0);
-    const rotate = useTransform(x, [-200, 200], [-25, 25]);
-    const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0, 1, 1, 1, 0]);
+    const rotate = useTransform(x, [-200, 200], [-50, 50]); // Increased rotation for more "swipe" feel
+    const opacity = useTransform(x, [-200, -100, 0, 100, 200], [0, 1, 1, 1, 0]); // Fade out faster at edges
 
     // Color feedback based on drag position
     const borderColor = useTransform(
