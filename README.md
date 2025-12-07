@@ -24,4 +24,4 @@ Swipe through 100+ AI/Crypto/SaaS startup pitches:
 -   Supabase (Leaderboard)
 
 ---
-*Built with love for the PEF group, by Gemini 3, with some mild instructions and supervision of the nudnik human who owns this repo*
+*Built with love for the PEF group, by Gemini 3, with some mild interference and supervision of the nudnik human who owns this repo*
