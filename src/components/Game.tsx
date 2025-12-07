@@ -166,12 +166,30 @@ export const Game: React.FC = () => {
                                 {lastResult.feedback}
                             </p>
 
-                            <button
-                                onClick={handleNextCard}
-                                className="mt-2 px-6 py-3 bg-white text-slate-900 font-retro text-xs rounded hover:scale-105 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none"
-                            >
-                                {runway <= 0 && !lastResult.isCorrect ? 'GAME OVER' : 'NEXT STARTUP'}
-                            </button>
+                            {runway <= 0 && !lastResult.isCorrect ? (
+                                <div className="relative mt-2 w-full">
+                                    <button
+                                        onClick={handleNextCard}
+                                        className="relative w-full px-6 py-3 bg-white text-slate-900 font-retro text-xs rounded overflow-hidden hover:scale-105 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none z-10"
+                                    >
+                                        OK ALREADY
+                                        <motion.div
+                                            initial={{ width: "0%" }}
+                                            animate={{ width: "100%" }}
+                                            transition={{ duration: 3, ease: "linear" }}
+                                            onAnimationComplete={handleNextCard}
+                                            className="absolute bottom-0 left-0 h-1 bg-red-500"
+                                        />
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={handleNextCard}
+                                    className="mt-2 px-6 py-3 bg-white text-slate-900 font-retro text-xs rounded hover:scale-105 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none"
+                                >
+                                    NEXT STARTUP
+                                </button>
+                            )}
                         </div>
                     </motion.div>
                 )}

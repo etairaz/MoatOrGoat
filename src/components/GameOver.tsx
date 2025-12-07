@@ -72,7 +72,7 @@ export const GameOver: React.FC<GameOverProps> = ({ score, onRestart, isWin = fa
                 {isWin ? 'DEAL FLOW DRIED OUT' : 'GAME OVER'}
             </h1>
 
-            <p className="text-slate-300 font-mono text-center text-sm px-4">
+            <p className="text-slate-300 font-mono text-center text-lg md:text-xl px-4 italic">
                 {isWin ? "You've seen it all. Truly a legendary VC." : funnyMessage}
             </p>
 
