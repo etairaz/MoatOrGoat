@@ -58,7 +58,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart }) => {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="ENTER PRETEND VC NAME"
                     maxLength={15}
-                    className="w-full bg-slate-800 border-2 border-slate-600 focus:border-moat rounded p-3 text-center text-white font-retro text-xs md:text-sm uppercase placeholder:text-slate-600 outline-none"
+                    className="w-full bg-slate-800 border-2 border-slate-600 focus:border-moat rounded p-3 text-center text-white font-retro text-base md:text-sm uppercase placeholder:text-slate-600 outline-none"
                     onKeyDown={(e) => e.key === 'Enter' && handleStart()}
                 />
 
